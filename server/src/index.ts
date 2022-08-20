@@ -31,3 +31,11 @@ const schema = buildSchema(`
         getUsers: [User]
     }
 `);
+
+type User = {
+	id: number;
+	name: string;
+	email: string;
+};
+
+type UserInput = Pick<User, "email" | "name">;
