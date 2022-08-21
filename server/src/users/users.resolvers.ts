@@ -2,11 +2,11 @@ import { Query, Resolver, Mutation, Arg } from "type-graphql";
 import { UserInput, User } from "./users.schema";
 
 @Resolver(() => User)
-export class UsersResolver {
+export class UserResolver {
 	private users: User[] = [
-		{ id: 1, name: "John Doe", email: "johndoe@gmail.com" },
-		{ id: 2, name: "Jane Doe", email: "janedoe@gmail.com" },
-		{ id: 3, name: "Mike Doe", email: "mikedoe@gmail.com" },
+		{ id: "1", name: "John Doe", email: "johndoe@gmail.com" },
+		{ id: "2", name: "Jane Doe", email: "janedoe@gmail.com" },
+		{ id: "3", name: "Mike Doe", email: "mikedoe@gmail.com" },
 	];
 
 	@Query(() => [User])
@@ -15,7 +15,7 @@ export class UsersResolver {
 	}
 
 	@Query(() => User)
-	async getUser(@Arg("id") id: number): Promise<User | undefined> {
+	async getUser(@Arg("id") id: string): Promise<User | undefined> {
 		const user = this.users.find(u => u.id === id);
 		return user;
 	}
@@ -23,7 +23,7 @@ export class UsersResolver {
 	@Mutation(() => User)
 	async createUser(@Arg("input") input: UserInput): Promise<User> {
 		const user = {
-			id: this.users.length + 1,
+			id: `${this.users.length + 1}`,
 			...input,
 		};
 
@@ -33,7 +33,7 @@ export class UsersResolver {
 
 	@Mutation(() => User)
 	async updateUser(
-		@Arg("id") id: number,
+		@Arg("id") id: string,
 		@Arg("input") input: UserInput
 	): Promise<User> {
 		const user = this.users.find(u => u.id === id);
