@@ -3,7 +3,6 @@ import { buildSchema } from "type-graphql";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { AppDataSource } from "./data-source";
-import { graphqlHTTP } from "express-graphql";
 import { UserResolver } from "./users/users.resolvers";
 
 async function main() {
@@ -24,15 +23,9 @@ async function main() {
 		}),
 	});
 
-	apolloServer.applyMiddleware({ app });
+	await apolloServer.start();
 
-	app.use(
-		"/graphql",
-		graphqlHTTP({
-			schema: schema,
-			graphiql: true,
-		})
-	);
+	apolloServer.applyMiddleware({ app });
 
 	app.listen(8000);
 
