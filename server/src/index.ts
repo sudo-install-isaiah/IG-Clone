@@ -3,7 +3,7 @@ import { buildSchema } from "type-graphql";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { AppDataSource } from "./data-source";
-import { UserResolver } from "./users/users.resolvers";
+import { UserResolver } from "./resolvers/users.resolvers";
 
 async function main() {
 	AppDataSource.initialize()

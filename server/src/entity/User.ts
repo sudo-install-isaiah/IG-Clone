@@ -1,23 +1,31 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
-import { Field, ObjectType, InputType, ID } from "type-graphql";
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Field, ObjectType, ID, Int } from "type-graphql";
 
-ObjectType()
+ObjectType();
 @Entity()
 export class User {
+	@Field(type => ID)
+	@PrimaryGeneratedColumn()
+	id: number;
+
+	@Field()    
+	@Column()
+	username: string;
+
+	@Field()
+	@Column()
+	password: string;
+
+	@Field(() => Int)
+	@Column()
+    followers: number;
+    
     @Field()
-    @PrimaryGeneratedColumn()
-    id: number
-
     @Column()
-    firstName: string
+    following: number; 
 
+    @Field()
     @Column()
-    lastName: string
-
-    @Column()
-    age: number
+    posts: [Posts]
 
 }
-
-
-
